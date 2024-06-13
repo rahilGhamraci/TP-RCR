@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xml:base="http://testxyz.org/onto.owl"
+         xmlns="http://testxyz.org/onto.owl#">
+
+<owl:Ontology rdf:about="http://testxyz.org/onto.owl"/>
+
+<owl:ObjectProperty rdf:about="#travaille">
+  <rdfs:domain rdf:resource="#Personne"/>
+  <rdfs:range rdf:resource="#Entreprise"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#derige">
+  <rdfs:domain rdf:resource="#Personne"/>
+  <rdfs:range rdf:resource="#Entreprise"/>
+  <owl:inverseOf rdf:resource="#derige_par"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#derige_par">
+  <owl:inverseOf rdf:resource="#derige"/>
+</owl:ObjectProperty>
+
+<owl:Class rdf:about="#Personne">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Femelle">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Male">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  <owl:disjointWith rdf:resource="#Femelle"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Entreprise">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Femme">
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Personne"/>
+        <rdf:Description rdf:about="#Femelle"/>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  <rdfs:subClassOf rdf:resource="#Personne"/>
+  <rdfs:subClassOf rdf:resource="#Femelle"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Homme">
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Personne"/>
+        <rdf:Description rdf:about="#Male"/>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  <rdfs:subClassOf rdf:resource="#Personne"/>
+  <rdfs:subClassOf rdf:resource="#Male"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Employee">
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Femme"/>
+        <owl:Restriction>
+          <owl:someValuesFrom rdf:resource="#Entreprise"/>
+          <owl:onProperty rdf:resource="#travaille"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  <rdfs:subClassOf rdf:resource="#Femme"/>
+  <owl:disjointWith rdf:resource="#Employe"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Employe">
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Homme"/>
+        <owl:Restriction>
+          <owl:someValuesFrom rdf:resource="#Entreprise"/>
+          <owl:onProperty rdf:resource="#travaille"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  <rdfs:subClassOf rdf:resource="#Homme"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Directeur">
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Personne"/>
+        <owl:Restriction>
+          <owl:someValuesFrom rdf:resource="#Entreprise"/>
+          <owl:onProperty rdf:resource="#derige"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  <rdfs:subClassOf rdf:resource="#Personne"/>
+</owl:Class>
+
+<owl:NamedIndividual rdf:about="#Rahil">
+  <rdf:type rdf:resource="#Employee"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Lydia">
+  <rdf:type rdf:resource="#Employee"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Mohamed">
+  <rdf:type rdf:resource="#Directeur"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#SONATRACH">
+  <rdf:type rdf:resource="#Entreprise"/>
+</owl:NamedIndividual>
+
+<owl:AllDifferent>
+  <owl:distinctMembers rdf:parseType="Collection">
+    <rdf:Description rdf:about="#Rahil"/>
+    <rdf:Description rdf:about="#Lydia"/>
+  </owl:distinctMembers>
+</owl:AllDifferent>
+
+
+</rdf:RDF>
